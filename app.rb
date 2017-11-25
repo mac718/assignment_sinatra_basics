@@ -30,17 +30,18 @@ end
 
 def determine_winner
   moves = [@my_move, @comp_move]
+  result = ''
   WINNING_COMBOS.each do |combo|
     binding.pry
     if moves == combo
-      @result = 'You Win!'
+      return result = 'You Win!'
     elsif moves[0] == moves[1]
-      @result = "It's a tie!"
+      return result = "It's a tie!"
     else
-      @result = 'Computer wins!'
+      result = 'Computer wins!'
     end
   end
-  @result
+  result
 end
 
 
