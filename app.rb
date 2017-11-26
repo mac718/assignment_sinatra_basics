@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'pry-byebug'
+require 'erb'
 
 helpers do 
   def computer_move
@@ -10,7 +11,7 @@ helpers do
     moves = [@my_move, @comp_move]
     result = ''
     WINNING_COMBOS.each do |combo|
-      binding.pry
+      #binding.pry
       if moves == combo
         return result = 'You Win!'
       elsif moves[0] == moves[1]
@@ -42,8 +43,12 @@ end
 post '/rps' do 
   @my_move = params[:human_move].downcase
   @comp_move = computer_move
-  #binding.pry
-  erb :rps_result, locals: { human_move: @my_move, computer_move: @comp_move, result: determine_winner }
+
+  unless ['rock', 'paper', 'scissors'].include?(@my_move)
+    redirect '/rps'
+  else
+    erb :rps_result, locals: { result: determine_winner }
+  end
 end
 
 
